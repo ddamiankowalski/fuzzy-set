@@ -1,4 +1,5 @@
 import { SType } from "./set-types/s-type.js";
+import { TriangleType } from "./set-types/triangle-type.js";
 import { ZType } from "./set-types/z-type.js";
 
 export class SetTypeFactory {
@@ -8,6 +9,8 @@ export class SetTypeFactory {
                 return new SType(setTypeData);
             case 'z':
                 return new ZType(setTypeData);
+            case 'triangle':
+                return new TriangleType(setTypeData);
         }
     }
 }

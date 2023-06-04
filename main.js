@@ -20,5 +20,8 @@ readCSV()
 
         const fuzzySetZ = new FuzzySet('z', { leftBoundary: 80, rightBoundary: 100 });
         console.log(fuzzySetZ.getMembershipFor(1));
+
+        const triangleSet = new FuzzySet('triangle', { leftBoundary: 80, rightBoundary: 100 });
+        console.log(triangleSet.getMembershipFor(80))
     });
 
