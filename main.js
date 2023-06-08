@@ -2,6 +2,9 @@ import * as fs from 'fs';
 import { parse } from 'csv-parse';
 import { FuzzySet } from './set.js';
 
+const oldMoviesSet = new FuzzySet('z', { leftBoundary: 2000, rightBoundary: 2010 });
+const longMoviesSet = new FuzzySet('s', { leftBoundary: 90, rightBoundary: 120 });
+
 const readCSV = () => {
     let header, rows = [];
     return new Promise((resolve, reject) => {
@@ -13,15 +16,16 @@ const readCSV = () => {
     })
 }
 
+const calculateMembership = (rows, colIndex, fuzzySet) => {
+    return rows.map(row => {
+        const value = Number(row[colIndex]);
+        fuzzySet.getMembershipFor(value); 
+    });
+} 
+
 readCSV()
     .then(({ header, rows }) => {
-        const fuzzySetS = new FuzzySet('s', { leftBoundary: 80, rightBoundary: 110 });
-        const setSMembership = fuzzySetS.getMembershipFor(150);
-
-        const fuzzySetZ = new FuzzySet('z', { leftBoundary: 80, rightBoundary: 100 });
-        console.log(fuzzySetZ.getMembershipFor(1));
-
-        const triangleSet = new FuzzySet('triangle', { leftBoundary: 80, rightBoundary: 100 });
-        console.log(triangleSet.getMembershipFor(80))
+        const oldMoviesMembership = calculateMembership(rows, 4, oldMoviesSet);
+        console.log(oldMoviesMembership);
     });
 
