@@ -17,15 +17,15 @@ const readCSV = () => {
 }
 
 const calculateMembership = (rows, colIndex, fuzzySet) => {
-    return rows.map(row => {
-        const value = Number(row[colIndex]);
-        fuzzySet.getMembershipFor(value); 
-    });
+    return rows.map(row => fuzzySet.getMembershipFor(getValueFromRow(row, colIndex)));
 } 
+
+const getValueFromRow = (row, colIndex) => Number(row[colIndex]);
 
 readCSV()
     .then(({ header, rows }) => {
         const oldMoviesMembership = calculateMembership(rows, 4, oldMoviesSet);
-        console.log(oldMoviesMembership);
+        const longMoviesMembership = calculateMembership(rows, 5, longMoviesSet);
+        console.log(longMoviesMembership)
     });
 
